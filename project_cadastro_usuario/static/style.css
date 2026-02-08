@@ -1,0 +1,120 @@
+/* RESET BÁSICO */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* CORPO DA PÁGINA */
+body {
+    background-color: #f4f6f8;
+    color: #333;
+    padding: 40px;
+}
+
+/* CONTAINER PADRÃO */
+.container {
+    max-width: 600px;
+    background-color: #fff;
+    padding: 30px;
+    margin: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* TÍTULOS */
+h1 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #2c3e50;
+}
+
+/* FORMULÁRIO */
+form label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+form input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+form button {
+    margin-top: 20px;
+    width: 100%;
+    padding: 12px;
+    background-color: #3498db;
+    border: none;
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #2980b9;
+}
+
+/* LISTA DE USUÁRIOS */
+ul {
+    list-style: none;
+    margin-top: 20px;
+}
+
+/* TABELA SIMPLES */
+.table {
+    margin-top: 20px;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.table-header,
+.table-row {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    padding: 12px;
+}
+
+.table-header {
+    background-color: #3498db;
+    color: white;
+    font-weight: bold;
+}
+
+.table-row {
+    background-color: #ecf0f1;
+    border-bottom: 1px solid #ddd;
+}
+
+.table-row:nth-child(even) {
+    background-color: #e0e6ea;
+}
+
+.table-row {
+    background-color: #ecf0f1;
+    border-bottom: 1px solid #ddd;
+    transition: background-color 0.25s ease, transform 0.15s ease;
+}
+
+.table-row:hover {
+    background-color: #d6eaf8;
+    transform: translateX(4px);
+    cursor: pointer;
+}
+
+.link-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 5px;
+    background-color: #3498db;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 6px;
+}
+
