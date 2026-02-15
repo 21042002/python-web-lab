@@ -1,0 +1,20 @@
+# Usa uma imagem leve do python
+FROM python:3.10.12 -slim
+
+# Define onde os arquivos vão ficar dentro do docker
+WORKDIR  /app
+
+# Copia o arquivo de dependências e instala as bibliotecas 
+COPY requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copia o restante do seu código 
+(seu app.py, templates, etc)
+COPY ..
+
+# Informa que o flask vai rodar na porta 5000
+porta 5000
+EXPOSE 5000
+
+# comando para rodar o flask
+CMD ["python", "app.py"]   
