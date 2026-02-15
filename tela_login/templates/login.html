@@ -1,0 +1,60 @@
+<!-- ============================================================ -->
+<!-- login.html - Pagina de login do sistema                      -->
+<!-- ============================================================ -->
+<!-- Formulario onde o usuario digita email e senha para acessar   -->
+<!-- O formulario envia os dados via POST para a rota /login       -->
+<!-- O Flask processa os dados no main.py                         -->
+<!-- ============================================================ -->
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Carrega o CSS usando url_for do Flask -->
+    <!-- O Flask serve arquivos estaticos da pasta 'static/' -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <title>Login</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Login</h1>
+
+        <!-- Flash messages: mensagens de feedback (sucesso, erro) -->
+        {% with mensagens = get_flashed_messages(with_categories=true) %}
+            {% if mensagens %}
+                {% for categoria, mensagem in mensagens %}
+                    <div class="flash flash-{{ categoria }}">
+                        {{ mensagem }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- Formulario de login -->
+        <!-- action="/login" -> envia os dados para a rota /login -->
+        <!-- method="post" -> usa metodo POST (dados nao aparecem na URL) -->
+        <form action="/login" method="post">
+
+            <label for="email">Email:</label>
+            <!-- type="email" -> navegador valida formato de email automaticamente -->
+            <!-- name="email" -> chave usada no Flask: request.form["email"] -->
+            <input type="email" id="email" name="email" placeholder="Digite seu email" required>
+
+            <label for="senha">Senha:</label>
+            <!-- type="password" -> esconde os caracteres com bolinhas/asteriscos -->
+            <!-- name="senha" -> chave usada no Flask: request.form["senha"] -->
+            <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
+
+            <button type="submit">Entrar</button>
+        </form>
+
+        <!-- Link para a pagina de cadastro (para quem nao tem conta) -->
+        <p class="link-texto">
+            Nao tem uma conta? <a href="/cadastro" class="link">Cadastre-se</a>
+        </p>
+    </div>
+</body>
+</html>

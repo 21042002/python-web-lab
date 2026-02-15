@@ -1,0 +1,54 @@
+<!-- ============================================================ -->
+<!-- cadastro.html - Pagina de cadastro de novos usuarios         -->
+<!-- ============================================================ -->
+<!-- Formulario onde o usuario cria uma nova conta informando      -->
+<!-- nome, email e senha. Os dados sao enviados via POST para     -->
+<!-- a rota /cadastro que processa e salva no banco de dados.     -->
+<!-- ============================================================ -->
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Cadastro</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Criar Conta</h1>
+
+        <!-- Flash messages para feedback ao usuario -->
+        {% with mensagens = get_flashed_messages(with_categories=true) %}
+            {% if mensagens %}
+                {% for categoria, mensagem in mensagens %}
+                    <div class="flash flash-{{ categoria }}">
+                        {{ mensagem }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- Formulario de cadastro -->
+        <form action="/cadastro" method="post">
+
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" placeholder="Digite seu nome completo" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Digite seu email" required>
+
+            <label for="senha">Senha:</label>
+            <!-- minlength="6" -> exige pelo menos 6 caracteres na senha -->
+            <input type="password" id="senha" name="senha" placeholder="Crie uma senha (min. 6 caracteres)" minlength="6" required>
+
+            <button type="submit">Cadastrar</button>
+        </form>
+
+        <!-- Link para voltar a pagina de login -->
+        <p class="link-texto">
+            Ja tem uma conta? <a href="/login" class="link">Faca login</a>
+        </p>
+    </div>
+</body>
+</html>

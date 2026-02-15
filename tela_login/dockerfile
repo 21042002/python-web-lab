@@ -1,20 +1,43 @@
-# Usa uma imagem leve do python
-FROM python:3.10.12 -slim
+# ============================================================
+# Dockerfile - Configuracao para rodar a aplicacao no Docker
+# ============================================================
+# Docker eh uma ferramenta que "empacota" sua aplicacao com
+# tudo que ela precisa (Python, Flask, etc) em um "container".
+# Isso garante que a aplicacao roda igual em qualquer computador.
+#
+# Para usar:
+#   1. Construir a imagem: docker build -t tela-login .
+#   2. Rodar o container:  docker run -p 5000:5000 tela-login
+#   3. Acessar no navegador: http://localhost:5000/login
+# ============================================================
 
-# Define onde os arquivos vão ficar dentro do docker
-WORKDIR  /app
+# FROM: define a imagem base (sistema operacional + Python)
+# python:3.10.12-slim eh uma versao leve do Python (menor e mais rapida)
+FROM python:3.10.12-slim
 
-# Copia o arquivo de dependências e instala as bibliotecas 
-COPY requirements.txt
+# WORKDIR: define o diretorio de trabalho dentro do container
+# Todos os comandos seguintes serao executados dentro de /app
+WORKDIR /app
+
+# COPY: copia arquivos do seu computador para dentro do container
+# Primeiro copia so o requirements.txt para aproveitar o cache do Docker
+# Se as dependencias nao mudaram, o Docker nao reinstala (mais rapido)
+COPY requirements.txt .
+
+# RUN: executa um comando durante a construcao da imagem
+# pip install: instala as bibliotecas listadas no requirements.txt
+# --no-cache-dir: nao salva cache do pip (reduz o tamanho da imagem)
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copia o restante do seu código 
-(seu app.py, templates, etc)
-COPY ..
+# Agora copia TODO o restante do codigo para dentro do container
+# O '.' significa "diretorio atual" (onde esta o Dockerfile)
+COPY . .
 
-# Informa que o flask vai rodar na porta 5000
-porta 5000
+# EXPOSE: documenta que a aplicacao usa a porta 5000
+# Isso NAO abre a porta - serve como documentacao
+# A porta eh aberta de verdade com -p no docker run
 EXPOSE 5000
 
-# comando para rodar o flask
-CMD ["python", "app.py"]   
+# CMD: comando que roda quando o container eh iniciado
+# Executa "python main.py" para iniciar o servidor Flask
+CMD ["python", "main.py"]

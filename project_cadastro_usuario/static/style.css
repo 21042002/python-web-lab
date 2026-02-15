@@ -1,4 +1,33 @@
-/* RESET BÁSICO */
+/* ============================================================
+   style.css - Estilos da aplicacao de cadastro de clientes
+   ============================================================
+   Este arquivo contem todo o CSS (estilizacao visual) do projeto.
+   O Flask serve este arquivo automaticamente da pasta 'static/'.
+
+   Organizacao:
+     1. Reset basico (remove estilos padrao do navegador)
+     2. Corpo da pagina (fundo, fonte, etc)
+     3. Container principal (caixa branca centralizada)
+     4. Titulos
+     5. Formulario (labels, inputs, botao)
+     6. Flash messages (mensagens de sucesso/erro)
+     7. Tabela de clientes (cabecalho, linhas, hover)
+     8. Botoes e links
+     9. Mensagem de lista vazia
+   ============================================================ */
+
+
+/* ============================================================
+   1. RESET BASICO
+   ============================================================
+   Remove margens e espaçamentos padrao que cada navegador aplica
+   de forma diferente. Isso garante que o layout fique igual
+   em Chrome, Firefox, Edge, etc.
+
+   box-sizing: border-box -> faz o padding e border serem
+   contados DENTRO da largura total do elemento
+   (sem isso, um elemento de 100px + 10px de padding = 120px)
+   ============================================================ */
 * {
     margin: 0;
     padding: 0;
@@ -6,45 +35,100 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-/* CORPO DA PÁGINA */
+
+/* ============================================================
+   2. CORPO DA PAGINA
+   ============================================================
+   background-color: cor de fundo cinza claro
+   color: cor do texto (cinza escuro, mais suave que preto puro)
+   padding: espaco interno para nao colar nas bordas da tela
+   min-height: garante que o fundo cubra a tela inteira
+   ============================================================ */
 body {
     background-color: #f4f6f8;
     color: #333;
     padding: 40px;
+    min-height: 100vh;
 }
 
-/* CONTAINER PADRÃO */
+
+/* ============================================================
+   3. CONTAINER PRINCIPAL
+   ============================================================
+   Caixa branca centralizada que contem todo o conteudo
+   max-width: largura maxima de 600px (nao estica em telas grandes)
+   margin: auto -> centraliza horizontalmente
+   border-radius: arredonda os cantos
+   box-shadow: sombra sutil para dar profundidade (efeito "cartao")
+   ============================================================ */
 .container {
     max-width: 600px;
     background-color: #fff;
     padding: 30px;
     margin: auto;
     border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* TÍTULOS */
+
+/* ============================================================
+   4. TITULOS
+   ============================================================
+   text-align: center -> centraliza o texto
+   margin-bottom: espaco abaixo do titulo
+   color: azul escuro para destaque
+   ============================================================ */
 h1 {
     text-align: center;
     margin-bottom: 25px;
     color: #2c3e50;
 }
 
-/* FORMULÁRIO */
+
+/* ============================================================
+   5. FORMULARIO
+   ============================================================
+   Estilos para os labels, campos de input e botao de envio
+   ============================================================ */
+
+/* Labels (textos "Nome:", "Email:") */
+/* display: block -> faz o label ocupar uma linha inteira */
+/* margin-top: espaco acima de cada label */
 form label {
     display: block;
     margin-top: 15px;
     font-weight: bold;
 }
 
+/* Campos de texto (inputs) */
+/* width: 100% -> ocupa toda a largura do formulario */
+/* padding: espaco interno para o texto nao ficar colado na borda */
+/* border: borda cinza fina */
+/* border-radius: cantos levemente arredondados */
+/* transition: anima a mudanca de cor da borda ao clicar no campo */
 form input {
     width: 100%;
     padding: 10px;
     margin-top: 5px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
 }
 
+/* Efeito quando o usuario clica/foca no campo de input */
+/* outline: none -> remove a borda azul padrao do navegador */
+/* border-color: muda a borda para azul, indicando que o campo esta ativo */
+form input:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+/* Botao de envio (Salvar) */
+/* background-color: azul chamativo para chamar atencao */
+/* border: none -> remove a borda padrao do botao */
+/* cursor: pointer -> muda o cursor para "maozinha" ao passar por cima */
+/* transition: anima a mudanca de cor no hover (efeito suave) */
 form button {
     margin-top: 20px;
     width: 100%;
@@ -55,25 +139,68 @@ form button {
     font-size: 16px;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
+/* Efeito hover: escurece o botao quando o mouse passa por cima */
 form button:hover {
     background-color: #2980b9;
 }
 
-/* LISTA DE USUÁRIOS */
-ul {
-    list-style: none;
-    margin-top: 20px;
+
+/* ============================================================
+   6. FLASH MESSAGES (mensagens de feedback)
+   ============================================================
+   Caixas coloridas que aparecem temporariamente para informar
+   o usuario sobre o resultado de uma acao (sucesso ou erro)
+   Geradas pelo flash() do Flask no app.py
+   ============================================================ */
+
+/* Estilo base de todas as flash messages */
+.flash {
+    padding: 12px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    font-weight: bold;
+    text-align: center;
 }
 
-/* TABELA SIMPLES */
+/* Flash de sucesso: fundo verde claro, texto verde escuro */
+/* Aparece quando um cliente eh cadastrado com sucesso */
+.flash-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+/* Flash de erro/perigo: fundo vermelho claro, texto vermelho escuro */
+/* Aparece quando ha erro na validacao dos dados */
+.flash-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+
+/* ============================================================
+   7. TABELA DE CLIENTES
+   ============================================================
+   Tabela construida com CSS Grid (nao usa <table> do HTML)
+   CSS Grid eh uma forma moderna e flexivel de criar layouts
+   grid-template-columns: define quantas colunas e seus tamanhos
+     1fr 2fr -> primeira coluna (Nome) ocupa 1 parte,
+                segunda coluna (Email) ocupa 2 partes
+   ============================================================ */
+
+/* Container da tabela */
 .table {
     margin-top: 20px;
     border-radius: 6px;
     overflow: hidden;
 }
 
+/* Cabecalho e linhas compartilham o mesmo layout de grid */
+/* Isso garante que as colunas fiquem alinhadas */
 .table-header,
 .table-row {
     display: grid;
@@ -81,40 +208,71 @@ ul {
     padding: 12px;
 }
 
+/* Cabecalho da tabela: fundo azul, texto branco */
 .table-header {
     background-color: #3498db;
     color: white;
     font-weight: bold;
 }
 
-.table-row {
-    background-color: #ecf0f1;
-    border-bottom: 1px solid #ddd;
-}
-
-.table-row:nth-child(even) {
-    background-color: #e0e6ea;
-}
-
+/* Linhas da tabela: fundo cinza claro, borda inferior para separar */
+/* transition: anima o efeito de hover suavemente */
 .table-row {
     background-color: #ecf0f1;
     border-bottom: 1px solid #ddd;
     transition: background-color 0.25s ease, transform 0.15s ease;
 }
 
+/* Linhas pares com cor levemente diferente (efeito "zebra") */
+/* Facilita a leitura quando tem muitas linhas */
+.table-row:nth-child(even) {
+    background-color: #e0e6ea;
+}
+
+/* Efeito hover: destaca a linha quando o mouse passa por cima */
+/* translateX(4px): desliza a linha 4px para a direita (efeito sutil) */
 .table-row:hover {
     background-color: #d6eaf8;
     transform: translateX(4px);
     cursor: pointer;
 }
 
+
+/* ============================================================
+   8. BOTOES E LINKS
+   ============================================================
+   Estilo para os links que parecem botoes (ex: "Voltar", "Ver Clientes")
+   display: inline-block -> permite definir largura e altura em links
+   text-decoration: none -> remove o sublinhado padrao de links
+   ============================================================ */
 .link-btn {
     display: inline-block;
     padding: 10px 20px;
-    margin-top: 5px;
+    margin-top: 15px;
     background-color: #3498db;
     color: #fff;
     text-decoration: none;
     border-radius: 6px;
+    text-align: center;
+    transition: background-color 0.3s ease;
 }
 
+/* Efeito hover no botao-link */
+.link-btn:hover {
+    background-color: #2980b9;
+}
+
+
+/* ============================================================
+   9. MENSAGEM DE LISTA VAZIA
+   ============================================================
+   Estilo para a mensagem que aparece quando nao ha clientes
+   cadastrados no banco de dados
+   ============================================================ */
+.mensagem-vazia {
+    text-align: center;
+    color: #7f8c8d;
+    margin-top: 20px;
+    font-style: italic;
+    padding: 20px;
+}
