@@ -1,0 +1,40 @@
+<!-- ============================================================ -->
+<!-- dashboard.html - Area protegida do usuario logado            -->
+<!-- ============================================================ -->
+<!-- Esta pagina so eh acessivel para usuarios autenticados.       -->
+<!-- O main.py verifica se o usuario esta logado antes de exibir.  -->
+<!-- Recebe a variavel 'nome' com o nome do usuario logado.       -->
+<!-- ============================================================ -->
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Dashboard</title>
+</head>
+<body>
+    <div class="container">
+        <!-- Exibe o nome do usuario logado usando a variavel passada pelo Flask -->
+        <!-- {{ nome }} eh substituido pelo valor real (ex: "Anderson") -->
+        <h1>Bem-vindo, {{ nome }}!</h1>
+
+        <p class="dashboard-texto">Voce esta logado no sistema.</p>
+
+        <!-- Flash messages -->
+        {% with mensagens = get_flashed_messages(with_categories=true) %}
+            {% if mensagens %}
+                {% for categoria, mensagem in mensagens %}
+                    <div class="flash flash-{{ categoria }}">
+                        {{ mensagem }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- Botao de logout: redireciona para /logout que encerra a sessao -->
+        <a href="/logout" class="link-btn link-btn-danger">Sair da Conta</a>
+    </div>
+</body>
+</html>

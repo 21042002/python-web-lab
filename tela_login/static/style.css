@@ -1,0 +1,218 @@
+/* ============================================================
+   style.css - Estilos do sistema de login
+   ============================================================
+   CSS completo para as paginas de login, cadastro e dashboard.
+   Segue o mesmo padrao visual do projeto de cadastro de clientes.
+   ============================================================ */
+
+
+/* ============================================================
+   1. RESET BASICO
+   ============================================================
+   Remove estilos padrao dos navegadores para consistencia
+   ============================================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* ============================================================
+   2. CORPO DA PAGINA
+   ============================================================
+   Fundo com gradiente sutil de azul escuro para azul medio
+   display: flex + min-height: 100vh -> centraliza o container
+   verticalmente na tela inteira
+   ============================================================ */
+body {
+    background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+
+/* ============================================================
+   3. CONTAINER PRINCIPAL
+   ============================================================
+   Caixa branca centralizada com sombra
+   width: 100% + max-width -> responsivo em telas pequenas
+   ============================================================ */
+.container {
+    width: 100%;
+    max-width: 420px;
+    background-color: #fff;
+    padding: 35px;
+    border-radius: 10px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+
+/* ============================================================
+   4. TITULOS
+   ============================================================ */
+h1 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #2c3e50;
+    font-size: 24px;
+}
+
+
+/* ============================================================
+   5. FORMULARIO
+   ============================================================ */
+
+/* Labels dos campos */
+form label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+    font-size: 14px;
+}
+
+/* Campos de input (email, senha, nome) */
+form input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+/* Efeito de foco: borda azul quando clica no campo */
+form input:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+/* Botao de envio (Entrar / Cadastrar) */
+form button {
+    margin-top: 25px;
+    width: 100%;
+    padding: 12px;
+    background-color: #3498db;
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+/* Hover: escurece e eleva levemente o botao */
+form button:hover {
+    background-color: #2980b9;
+    transform: translateY(-1px);
+}
+
+/* Efeito ao clicar: botao "afunda" levemente */
+form button:active {
+    transform: translateY(1px);
+}
+
+
+/* ============================================================
+   6. FLASH MESSAGES (mensagens de feedback)
+   ============================================================ */
+
+/* Estilo base de todas as flash messages */
+.flash {
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    font-weight: bold;
+    text-align: center;
+    font-size: 14px;
+}
+
+/* Mensagem de sucesso: verde */
+.flash-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+/* Mensagem de erro: vermelho */
+.flash-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+
+/* ============================================================
+   7. LINKS E TEXTOS AUXILIARES
+   ============================================================ */
+
+/* Texto com link abaixo do formulario (ex: "Nao tem conta?") */
+.link-texto {
+    text-align: center;
+    margin-top: 20px;
+    color: #777;
+    font-size: 14px;
+}
+
+/* Links estilizados (ex: "Cadastre-se", "Faca login") */
+.link {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Hover no link: adiciona sublinhado */
+.link:hover {
+    text-decoration: underline;
+}
+
+
+/* ============================================================
+   8. BOTOES LINK (usados no dashboard)
+   ============================================================ */
+
+/* Botao-link padrao: azul */
+.link-btn {
+    display: inline-block;
+    padding: 12px 25px;
+    margin-top: 20px;
+    background-color: #3498db;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.link-btn:hover {
+    background-color: #2980b9;
+}
+
+/* Botao-link vermelho: para acoes como "Sair" */
+.link-btn-danger {
+    background-color: #e74c3c;
+}
+
+.link-btn-danger:hover {
+    background-color: #c0392b;
+}
+
+
+/* ============================================================
+   9. TEXTOS DO DASHBOARD
+   ============================================================ */
+.dashboard-texto {
+    text-align: center;
+    color: #555;
+    margin-bottom: 10px;
+    font-size: 16px;
+}

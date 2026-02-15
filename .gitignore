@@ -1,0 +1,45 @@
+# ============================================================
+# .gitignore - Arquivos que o Git deve IGNORAR
+# ============================================================
+# Tudo listado aqui NAO sera enviado para o GitHub.
+# Isso protege dados sensiveis e evita arquivos desnecessarios.
+# ============================================================
+
+# --- Arquivos de ambiente (SEGURANCA) ---
+# Contem senhas, chaves secretas, tokens de API
+# NUNCA devem ir para um repositorio publico
+.env
+.env.local
+.env.production
+
+# --- Bancos de dados locais ---
+# Arquivos .db sao gerados localmente e nao devem ir para o repo
+# Cada pessoa gera o proprio banco ao rodar o projeto
+*.db
+
+# --- Cache do Python ---
+# Arquivos compilados automaticamente pelo Python (bytecode)
+# Sao recriados automaticamente, nao precisam estar no repo
+__pycache__/
+*.py[cod]
+*.pyo
+
+# --- Ambientes virtuais ---
+# Pasta criada pelo 'python -m venv' com as dependencias instaladas
+# Cada pessoa cria o proprio ambiente virtual
+venv/
+.venv/
+env/
+
+# --- IDEs e editores ---
+# Configuracoes pessoais de cada editor de codigo
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# --- Sistema operacional ---
+# Arquivos gerados automaticamente pelo SO
+.DS_Store
+Thumbs.db

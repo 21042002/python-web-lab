@@ -1,3 +1,14 @@
+<!-- ============================================================ -->
+<!-- listar.html - Pagina que exibe todos os clientes cadastrados -->
+<!-- ============================================================ -->
+<!-- Este template recebe a variavel 'usuarios' do app.py         -->
+<!-- 'usuarios' eh uma lista de tuplas vindas do banco de dados:  -->
+<!--   [(1, 'Anderson', 'anderson@email.com'), ...]               -->
+<!--   usuario[0] = id | usuario[1] = nome | usuario[2] = email  -->
+<!--                                                                -->
+<!-- Usa o loop 'for' do Jinja2 para percorrer e exibir cada um  -->
+<!-- ============================================================ -->
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -8,23 +19,60 @@
 </head>
 <body>
     <div class="container">
-        <h1>Lista de Clientes:</h1>
+        <h1>Lista de Clientes</h1>
 
-        <div class="table">
-            <div class="table-header">
-                <span>Nome</span>
-                <span>Email</span>
+        <!-- ============================================================ -->
+        <!-- FLASH MESSAGES - Mensagens de feedback (ex: "Cadastrado!")   -->
+        <!-- ============================================================ -->
+        <!-- Quando o usuario salva um cliente, o app.py envia uma flash message -->
+        <!-- Aqui exibimos essa mensagem antes da tabela -->
+        {% with mensagens = get_flashed_messages(with_categories=true) %}
+            {% if mensagens %}
+                {% for categoria, mensagem in mensagens %}
+                    <div class="flash flash-{{ categoria }}">
+                        {{ mensagem }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- ============================================================ -->
+        <!-- TABELA DE CLIENTES                                           -->
+        <!-- ============================================================ -->
+        <!-- Verifica se existem clientes cadastrados antes de exibir a tabela -->
+        <!-- 'if usuarios' eh verdadeiro quando a lista NAO esta vazia -->
+        {% if usuarios %}
+            <div class="table">
+                <!-- Cabecalho da tabela com os nomes das colunas -->
+                <div class="table-header">
+                    <span>Nome</span>
+                    <span>Email</span>
+                </div>
+
+                <!-- ============================================================ -->
+                <!-- LOOP FOR - Percorre cada cliente da lista 'usuarios'          -->
+                <!-- ============================================================ -->
+                <!-- {% for usuario in usuarios %} eh equivalente ao Python:       -->
+                <!--   for usuario in usuarios:                                    -->
+                <!-- Cada 'usuario' eh uma tupla: (id, nome, email)               -->
+                <!-- {% endfor %} marca o fim do loop                             -->
+                {% for usuario in usuarios %}
+                    <div class="table-row">
+                        <!-- usuario[1] = nome do cliente (posicao 1 da tupla) -->
+                        <span>{{ usuario[1] }}</span>
+                        <!-- usuario[2] = email do cliente (posicao 2 da tupla) -->
+                        <span>{{ usuario[2] }}</span>
+                    </div>
+                {% endfor %}
             </div>
 
-            {% for usuario in usuarios %}
-            <div class="table-row">
-                <span>{{ usuario[1] }}</span>
-                <span>{{ usuario[2] }}</span>
-            </div>
-            {% endfor %}
-        </div>
-        
-        <a href="/" class="link-btn">Voltar</a>
+        <!-- Se NAO houver clientes cadastrados, mostra uma mensagem informativa -->
+        {% else %}
+            <p class="mensagem-vazia">Nenhum cliente cadastrado ainda. Cadastre o primeiro!</p>
+        {% endif %}
+
+        <!-- Link para voltar a pagina de cadastro -->
+        <a href="/" class="link-btn">Voltar ao Cadastro</a>
     </div>
 </body>
 </html>

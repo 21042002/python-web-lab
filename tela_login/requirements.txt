@@ -1,1 +1,13 @@
-Flask=3.1.2
+# ============================================================
+# requirements.txt - Lista de dependencias do projeto
+# ============================================================
+# Este arquivo lista todas as bibliotecas Python necessarias
+# para rodar o projeto. Para instalar todas de uma vez:
+#   pip install -r requirements.txt
+#
+# Formato: nome_da_biblioteca==versao_exata
+# O '==' (dois iguais) fixa a versao para evitar incompatibilidades
+# Um unico '=' esta ERRADO e causa erro na instalacao
+# ============================================================
+
+Flask==3.1.2

@@ -1,24 +1,80 @@
+<!-- ============================================================ -->
+<!-- index.html - Pagina de cadastro de clientes                  -->
+<!-- ============================================================ -->
+<!-- Este eh o template principal do formulario de cadastro.       -->
+<!-- Usa Jinja2 (motor de templates do Flask) para gerar HTML     -->
+<!-- dinamico. O Flask renderiza este arquivo com render_template() -->
+<!--                                                                -->
+<!-- Jinja2 - Sintaxe basica:                                      -->
+<!--   {{ variavel }}    -> exibe o valor de uma variavel Python    -->
+<!--   {% comando %}     -> executa logica (if, for, block, etc)   -->
+<!--   {# comentario #}  -> comentario que NAO aparece no HTML final -->
+<!-- ============================================================ -->
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+    <!-- charset UTF-8: permite usar acentos e caracteres especiais -->
     <meta charset="UTF-8">
+
+    <!-- viewport: faz a pagina se adaptar a telas de celular (responsivo) -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- url_for('static', filename='...') gera o caminho correto para arquivos estaticos -->
+    <!-- O Flask serve arquivos da pasta 'static/' automaticamente -->
+    <!-- Isso eh melhor que usar href="style.css" porque funciona em qualquer URL -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
     <title>Cadastro</title>
 </head>
 <body>
     <div class="container">
         <h1>Cadastrar Clientes</h1>
-        
+
+        <!-- ============================================================ -->
+        <!-- FLASH MESSAGES - Mensagens temporarias de feedback           -->
+        <!-- ============================================================ -->
+        <!-- get_flashed_messages() retorna as mensagens enviadas com flash() no app.py -->
+        <!-- with_categories=true inclui a categoria (success, danger) para estilizar -->
+        <!-- Essas mensagens aparecem uma unica vez e somem ao recarregar a pagina -->
+        {% with mensagens = get_flashed_messages(with_categories=true) %}
+            {% if mensagens %}
+                {% for categoria, mensagem in mensagens %}
+                    <!-- A classe CSS 'flash-success' ou 'flash-danger' define a cor -->
+                    <div class="flash flash-{{ categoria }}">
+                        {{ mensagem }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- ============================================================ -->
+        <!-- FORMULARIO DE CADASTRO                                       -->
+        <!-- ============================================================ -->
+        <!-- action="/salvar" -> quando clicar em Salvar, envia os dados para a rota /salvar -->
+        <!-- method="post" -> usa o metodo POST para enviar dados (mais seguro que GET) -->
+        <!-- POST esconde os dados da URL, GET mostra na barra de endereco -->
         <form action="/salvar" method="post">
-            <label>Nome:</label> <br>
-            <input type="text" name="nome" placeholder="Digite seu nome completo" required>
 
-            <label>Email:</label>
-            <input type="email" name="email" placeholder="Digite o email" required>
+            <!-- label: texto que descreve o campo do formulario -->
+            <!-- O atributo 'for' conecta o label ao input pelo 'id' -->
+            <label for="nome">Nome:</label>
+            <!-- type="text": campo de texto simples -->
+            <!-- name="nome": eh esse nome que o Flask usa para pegar o valor (request.form["nome"]) -->
+            <!-- placeholder: texto cinza que aparece quando o campo esta vazio -->
+            <!-- required: impede o envio do formulario se o campo estiver vazio -->
+            <input type="text" id="nome" name="nome" placeholder="Digite seu nome completo" required>
 
+            <label for="email">Email:</label>
+            <!-- type="email": o navegador valida se eh um email valido (precisa ter @) -->
+            <input type="email" id="email" name="email" placeholder="Digite o email" required>
+
+            <!-- type="submit": botao que envia o formulario -->
             <button type="submit">Salvar</button>
         </form>
+
+        <!-- Link para ver a lista de clientes ja cadastrados -->
+        <a href="/listar" class="link-btn">Ver Clientes Cadastrados</a>
     </div>
 </body>
 </html>
